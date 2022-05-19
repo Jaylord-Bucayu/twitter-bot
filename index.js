@@ -6,13 +6,10 @@ const axios = require('axios')
 let random = Math.floor(Math.random() * 10);
 
 function tweetQuote(){
-    axios.get('https://zenquotes.io/api/quotes/').then((res)=>{
+    axios.get('https://zenquotes.io/api/quotes/')
+    .then((res) =>{
       const {q,a} =  res.data[random];
-
-      
-     
-         tweet(q,a);
-     
+         tweet(q,a); 
      })
 }  
 
@@ -22,7 +19,7 @@ const tweet = async(quote,a)=> {
     try {
         await rwClient.v2.tweet(`" ${quote}" \n - ${a}`);
     } catch (error) {
-           console.error(error)
+        throw new Error('Something went wrong')
     }
 }
 
@@ -31,7 +28,7 @@ const job = new cronJob('* * * * *', ()=>{
     try {
        tweetQuote();
     } catch (error) {
-        console.log(error)
+       throw new Error('Something went wrong')
     }
 })
 job.start();
