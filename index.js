@@ -5,6 +5,7 @@ const axios = require('axios')
 
 let random = Math.floor(Math.random() * 10);
 
+
 function tweetQuote(){
     axios.get('https://zenquotes.io/api/quotes/')
     .then((res) =>{
