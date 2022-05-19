@@ -7,28 +7,20 @@ let random = Math.floor(Math.random() * 10);
 
 function tweetQuote(){
     axios.get('https://zenquotes.io/api/quotes/').then((res)=>{
-      const {q} =  res.data[random];
+      const {q,a} =  res.data[random];
 
       
      
-         tweet(q);
+         tweet(q,a);
      
      })
 }  
 
 
-
-
-
-
-
-
-
-
-const tweet = async(quote)=> {
+const tweet = async(quote,a)=> {
 
     try {
-        await rwClient.v2.tweet(quote);
+        await rwClient.v2.tweet(`" ${quote}" \n - ${a}`);
     } catch (error) {
            console.error(error)
     }
